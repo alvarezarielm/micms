@@ -3,7 +3,7 @@ class DB extends PDO {
 	
 	static public function connect(){
 		try {
-			return new PDO('mysql:host=127.0.0.1;dbname=arialva_micms','root', '1qaz');
+			return new PDO('mysql:host=127.0.0.1;dbname=micms','root', '1qaz');
 		}catch (PDOException $e){
 			die('Error: '.$e->getMessage().'<br/>');
 		}

@@ -1,6 +1,7 @@
 <?php
 
 abstract class Controller {
+	
 	function __construct() {
 		$this->view = new View();
 	}
@@ -9,8 +10,8 @@ abstract class Controller {
 		return Helper::loadModel($name);
 	}
 	
-	public function assign($name, $val){
-		$this->view->$name = $val;
+	public function assign($name, $value){
+		$this->view->$name = $value;
 	}
 	
 	public function redirect($controller){

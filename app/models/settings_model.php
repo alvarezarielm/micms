@@ -21,10 +21,10 @@ class SettingsModel extends Model {
 	
 	public function getSetting($key){
 		$connection = DB::connect();
-		$stmt = $connection->prepare("SELECT `key`, `value` FROM `site_settings` WHERE `key` = :key");
+		$stmt = $connection->prepare("SELECT `value` FROM `site_settings` WHERE `key` = :key");
 		$stmt->bindParam(':key', $key);
 		$stmt->execute();
-		$setting = $stmt->fetch(PDO::FETCH_ASSOC);
+		$setting = $stmt->fetch(PDO::FETCH_COLUMN);
 		return $setting;
 	}
 	

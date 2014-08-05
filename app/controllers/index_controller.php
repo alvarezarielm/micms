@@ -7,6 +7,7 @@ class IndexController extends Controller {
 	}
 	
 	public function index($id = null){
+		$view = new View();
 		$settingsModel = $this->loadModel('settings');
 		$friendly_urls = $settingsModel->getSetting('friendly_urls');
 		$site_name = $settingsModel->getSetting('site_name');
@@ -14,8 +15,9 @@ class IndexController extends Controller {
 		
 		//si no se asigno un id de pagina, cargamos la pagina default
 		if(is_null($id)){
-			
+			$id = $settingsModel->getSetting('default_page');
 		}
+		
 		
 		$current_page = $pageModel->getPage($id);
 		if($current_page['public_access'] == 0){
@@ -29,18 +31,18 @@ class IndexController extends Controller {
 		}
 		$this->assign('page_content', $page_content);
 		$this->assign('page_title', $current_page['title']);
-		$this->assign('site_name', $site_name['value']);
-		
+		$this->assign('site_name', $site_name);
+		$menu = '';
 		foreach ($pageModel->getPages() as $page){
 			if($page['public_access'] != 0){
-				if($friendly_urls['value'] == 0){
-					$this->view->menu .= '<li><a href="'.$page['id'].'">'.$page['title'].'</a></li>';
+				if($friendly_urls == 0){
+					$menu .= '<li><a href="'.$page['id'].'">'.$page['title'].'</a></li>';
 				}else{
-					$this->view->menu .= '<li><a href="'.$page['alias'].'">'.$page['title'].'</a></li>';
+					$menu .= '<li><a href="'.$page['alias'].'">'.$page['title'].'</a></li>';
 				}
 			}
 		}
-		
+		$this->assign('menu', $menu);
 		$templates = $pageModel->getTemplates();
 		foreach($templates as $template){
 			if($template['id'] == $current_page['template']){

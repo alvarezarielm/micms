@@ -44,24 +44,31 @@ class Bootstrap {
 	}
 	
 	public function getController(){
-		return $this->getUrlExploded()[0];
+		$explodedUrl = $this->getUrlExploded();
+		return (!is_null($explodedUrl)) ? $explodedUrl[0] : $explodedUrl;
 	}
 	
 	public function getMethod(){
-		return (isset($this->getUrlExploded()[1]))? $this->getUrlExploded()[1] : null;
+		$explodedUrl = $this->getUrlExploded();
+		return (isset($explodedUrl[1]))? $explodedUrl[1] : null;
 	}
 	
 	public function getParam(){
-		return (isset($this->getUrlExploded()[2]))? $this->getUrlExploded()[2] : null;
+		$explodedUrl = $this->getUrlExploded();
+		return (isset($explodedUrl[2]))? $explodedUrl[2] : null;
 	}
 	
 	public function getUrl(){
-		return $_GET['url'];
+		return (isset($_GET['url'])) ? $_GET['url'] : null;
 	}
 	
 	public function getUrlExploded(){
-		$url = rtrim($this->getUrl(), '/');
-		$explodedUrl = explode('/',$url);
+		$url = $this->getUrl();
+		$explodedUrl = null;
+		if(!is_null($url)){
+			$url = rtrim($this->getUrl(), '/');
+			$explodedUrl = explode('/',$url);
+		}
 		return $explodedUrl;
 	}
 	
