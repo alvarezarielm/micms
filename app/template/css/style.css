@@ -1,0 +1,105 @@
+@IMPORT url("reset.css");
+@IMPORT url("admin.css");
+
+/* PUBLIC SITE */
+.clearfix {
+	clear: both;
+}
+body {
+	background: #000 url(../images/body_img.jpg) no-repeat center top;
+	color: #fff;
+}
+#wrapper {
+	
+}
+#header {
+	width: 1023px;
+	margin: 0 auto;
+}
+#header h1 {
+	margin-left: 27px;
+	float: left;
+}
+#header h1 a {
+	background: #000 url(../images/logo.jpg) no-repeat center top;
+	display: block;
+	text-indent: -5000em;
+	width: 310px;
+	height: 122px;
+}
+#nav {
+	float: right;
+	margin-top: 65px;
+}
+#nav li {
+	float: left;
+	margin-left: 20px;
+	text-transform: uppercase;
+}
+#nav li a {
+	font-size: 22px;
+}
+#nav li a:hover {
+	color: #000;
+}
+#container {
+	background: url(../images/container_bg.jpg) repeat-x top;
+	height: 200px;
+}
+.content {
+	width: 1023px;
+	margin: 0 auto;
+	top: -20px;
+	position: relative;
+	background: #fff;
+}
+#features {
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-bottom: 40px;
+    padding-top: 35px;
+	background: #292929;
+	min-height: 95px;	
+}
+#features ul li {
+	display: block;
+	float: left;
+	padding-left: 50px;
+	width: 280px;
+	color: #8f8f8f;
+}
+#features ul li a {
+	text-decoration: none;
+	color: #189eb7;
+	font-weight: bold;
+}
+#features ul li h3 {
+	font-size: 25px;
+	color: #fff;
+	padding-bottom: 15px;
+}
+#features ul li:FIRST-CHILD {
+	padding-left: 0;
+}
+#lastWork {
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-bottom: 40px;
+    padding-top: 35px;
+}
+#lastWork ul li {
+	display: block;
+	float: left;
+	padding-left: 50px;
+	width: 280px;
+}
+#lastWork ul li img {
+	border: 1px solid #5b5b5b;
+}
+#lastWork ul li:FIRST-CHILD {
+	padding-left: 0;
+}
+#lastWork h3 {
+	color: #000;
+	font-size: 25px;
+}
