@@ -1,0 +1,136 @@
+[22-Dec-2011 19:20:17] PHP Warning:  require_once(core/core.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/index.php on line 10
+[22-Dec-2011 19:20:17] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required 'core/core.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/index.php on line 10
+[22-Dec-2011 19:20:18] PHP Warning:  require_once(core/core.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/index.php on line 10
+[22-Dec-2011 19:20:18] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required 'core/core.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/index.php on line 10
+[22-Dec-2011 19:20:18] PHP Warning:  require_once(core/core.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/index.php on line 10
+[22-Dec-2011 19:20:18] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required 'core/core.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/index.php on line 10
+[22-Dec-2011 19:20:18] PHP Warning:  require_once(core/core.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/index.php on line 10
+[22-Dec-2011 19:20:18] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required 'core/core.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/index.php on line 10
+[22-Dec-2011 19:35:15] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/arialva/public_html/micms/core/database.php:9
+Stack trace:
+#0 /home/arialva/public_html/micms/core/database.php(9): PDO->__construct('mysql:host=loca...', 'root', 'tetaloca')
+#1 /home/arialva/public_html/micms/core/model.php(6): DB->__construct()
+#2 /home/arialva/public_html/micms/app/models/index_model.php(5): Model->__construct()
+#3 /home/arialva/public_html/micms/core/controller.php(15): IndexModel->__construct()
+#4 /home/arialva/public_html/micms/app/bootstrap.php(74): Controller->loadModel('index')
+#5 /home/arialva/public_html/micms/app/bootstrap.php(29): Bootstrap->loadPage('')
+#6 /home/arialva/public_html/micms/core/core.php(12): Bootstrap->__construct()
+#7 /home/arialva/public_html/micms/index.php(10): require_once('/home/arialva/p...')
+#8 {main}
+  thrown in /home/arialva/public_html/micms/core/database.php on line 9
+[22-Dec-2011 19:36:31] PHP Fatal error:  Call to undefined method AdminController::app() in /home/arialva/public_html/micms/app/bootstrap.php on line 45
+[22-Dec-2011 19:36:32] PHP Fatal error:  Call to undefined method AdminController::app() in /home/arialva/public_html/micms/app/bootstrap.php on line 45
+[22-Dec-2011 19:36:32] PHP Fatal error:  Call to undefined method AdminController::app() in /home/arialva/public_html/micms/app/bootstrap.php on line 45
+[22-Dec-2011 19:36:32] PHP Fatal error:  Call to undefined method AdminController::app() in /home/arialva/public_html/micms/app/bootstrap.php on line 45
+[22-Dec-2011 19:36:32] PHP Fatal error:  Call to undefined method AdminController::app() in /home/arialva/public_html/micms/app/bootstrap.php on line 45
+[22-Dec-2011 19:42:05] PHP Fatal error:  Call to undefined method AdminController::app() in /home/arialva/public_html/micms/app/bootstrap.php on line 43
+[22-Dec-2011 19:42:05] PHP Fatal error:  Call to undefined method AdminController::app() in /home/arialva/public_html/micms/app/bootstrap.php on line 43
+[22-Dec-2011 19:42:05] PHP Fatal error:  Call to undefined method AdminController::app() in /home/arialva/public_html/micms/app/bootstrap.php on line 43
+[22-Dec-2011 19:42:05] PHP Fatal error:  Call to undefined method AdminController::app() in /home/arialva/public_html/micms/app/bootstrap.php on line 43
+[22-Dec-2011 19:42:05] PHP Fatal error:  Call to undefined method AdminController::app() in /home/arialva/public_html/micms/app/bootstrap.php on line 43
+[03-Jan-2012 10:52:04] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/arialva/public_html/micms/core/database.php:9
+Stack trace:
+#0 /home/arialva/public_html/micms/core/database.php(9): PDO->__construct('mysql:host=loca...', 'root', 'tetaloca')
+#1 /home/arialva/public_html/micms/core/model.php(6): DB->__construct()
+#2 /home/arialva/public_html/micms/app/models/index_model.php(5): Model->__construct()
+#3 /home/arialva/public_html/micms/core/controller.php(15): IndexModel->__construct()
+#4 /home/arialva/public_html/micms/app/bootstrap.php(65): Controller->loadModel('index')
+#5 /home/arialva/public_html/micms/app/bootstrap.php(24): Bootstrap->loadHome()
+#6 /home/arialva/public_html/micms/core/core.php(12): Bootstrap->__construct()
+#7 /home/arialva/public_html/micms/index.php(10): require_once('/home/arialva/p...')
+#8 {main}
+  thrown in /home/arialva/public_html/micms/core/database.php on line 9
+[03-Jan-2012 10:52:04] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/arialva/public_html/micms/core/database.php:9
+Stack trace:
+#0 /home/arialva/public_html/micms/core/database.php(9): PDO->__construct('mysql:host=loca...', 'root', 'tetaloca')
+#1 /home/arialva/public_html/micms/core/model.php(6): DB->__construct()
+#2 /home/arialva/public_html/micms/app/models/index_model.php(5): Model->__construct()
+#3 /home/arialva/public_html/micms/core/controller.php(15): IndexModel->__construct()
+#4 /home/arialva/public_html/micms/app/bootstrap.php(72): Controller->loadModel('index')
+#5 /home/arialva/public_html/micms/app/bootstrap.php(29): Bootstrap->loadPage('favicon.ico')
+#6 /home/arialva/public_html/micms/core/core.php(12): Bootstrap->__construct()
+#7 /home/arialva/public_html/micms/index.php(10): require_once('/home/arialva/p...')
+#8 {main}
+  thrown in /home/arialva/public_html/micms/core/database.php on line 9
+[03-Jan-2012 10:52:04] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/arialva/public_html/micms/core/database.php:9
+Stack trace:
+#0 /home/arialva/public_html/micms/core/database.php(9): PDO->__construct('mysql:host=loca...', 'root', 'tetaloca')
+#1 /home/arialva/public_html/micms/core/model.php(6): DB->__construct()
+#2 /home/arialva/public_html/micms/app/models/index_model.php(5): Model->__construct()
+#3 /home/arialva/public_html/micms/core/controller.php(15): IndexModel->__construct()
+#4 /home/arialva/public_html/micms/app/bootstrap.php(72): Controller->loadModel('index')
+#5 /home/arialva/public_html/micms/app/bootstrap.php(29): Bootstrap->loadPage('favicon.ico')
+#6 /home/arialva/public_html/micms/core/core.php(12): Bootstrap->__construct()
+#7 /home/arialva/public_html/micms/index.php(10): require_once('/home/arialva/p...')
+#8 {main}
+  thrown in /home/arialva/public_html/micms/core/database.php on line 9
+[03-Jan-2012 10:52:04] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/arialva/public_html/micms/core/database.php:9
+Stack trace:
+#0 /home/arialva/public_html/micms/core/database.php(9): PDO->__construct('mysql:host=loca...', 'root', 'tetaloca')
+#1 /home/arialva/public_html/micms/core/model.php(6): DB->__construct()
+#2 /home/arialva/public_html/micms/app/models/index_model.php(5): Model->__construct()
+#3 /home/arialva/public_html/micms/core/controller.php(15): IndexModel->__construct()
+#4 /home/arialva/public_html/micms/app/bootstrap.php(72): Controller->loadModel('index')
+#5 /home/arialva/public_html/micms/app/bootstrap.php(29): Bootstrap->loadPage('favicon.ico')
+#6 /home/arialva/public_html/micms/core/core.php(12): Bootstrap->__construct()
+#7 /home/arialva/public_html/micms/index.php(10): require_once('/home/arialva/p...')
+#8 {main}
+  thrown in /home/arialva/public_html/micms/core/database.php on line 9
+[03-Jan-2012 10:54:22] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'arialva_micms'@'localhost' (using password: YES)' in /home/arialva/public_html/micms/core/database.php:4
+Stack trace:
+#0 /home/arialva/public_html/micms/core/database.php(4): PDO->__construct('mysql:host=loca...', 'arialva_micms', 'tetaloca')
+#1 /home/arialva/public_html/micms/core/model.php(6): DB->__construct()
+#2 /home/arialva/public_html/micms/app/models/index_model.php(5): Model->__construct()
+#3 /home/arialva/public_html/micms/core/controller.php(15): IndexModel->__construct()
+#4 /home/arialva/public_html/micms/app/bootstrap.php(65): Controller->loadModel('index')
+#5 /home/arialva/public_html/micms/app/bootstrap.php(24): Bootstrap->loadHome()
+#6 /home/arialva/public_html/micms/core/core.php(12): Bootstrap->__construct()
+#7 /home/arialva/public_html/micms/index.php(10): require_once('/home/arialva/p...')
+#8 {main}
+  thrown in /home/arialva/public_html/micms/core/database.php on line 4
+[03-Jan-2012 10:54:24] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'arialva_micms'@'localhost' (using password: YES)' in /home/arialva/public_html/micms/core/database.php:4
+Stack trace:
+#0 /home/arialva/public_html/micms/core/database.php(4): PDO->__construct('mysql:host=loca...', 'arialva_micms', 'tetaloca')
+#1 /home/arialva/public_html/micms/core/model.php(6): DB->__construct()
+#2 /home/arialva/public_html/micms/app/models/index_model.php(5): Model->__construct()
+#3 /home/arialva/public_html/micms/core/controller.php(15): IndexModel->__construct()
+#4 /home/arialva/public_html/micms/app/bootstrap.php(65): Controller->loadModel('index')
+#5 /home/arialva/public_html/micms/app/bootstrap.php(24): Bootstrap->loadHome()
+#6 /home/arialva/public_html/micms/core/core.php(12): Bootstrap->__construct()
+#7 /home/arialva/public_html/micms/index.php(10): require_once('/home/arialva/p...')
+#8 {main}
+  thrown in /home/arialva/public_html/micms/core/database.php on line 4
+[03-Jan-2012 10:54:25] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'arialva_micms'@'localhost' (using password: YES)' in /home/arialva/public_html/micms/core/database.php:4
+Stack trace:
+#0 /home/arialva/public_html/micms/core/database.php(4): PDO->__construct('mysql:host=loca...', 'arialva_micms', 'tetaloca')
+#1 /home/arialva/public_html/micms/core/model.php(6): DB->__construct()
+#2 /home/arialva/public_html/micms/app/models/index_model.php(5): Model->__construct()
+#3 /home/arialva/public_html/micms/core/controller.php(15): IndexModel->__construct()
+#4 /home/arialva/public_html/micms/app/bootstrap.php(65): Controller->loadModel('index')
+#5 /home/arialva/public_html/micms/app/bootstrap.php(24): Bootstrap->loadHome()
+#6 /home/arialva/public_html/micms/core/core.php(12): Bootstrap->__construct()
+#7 /home/arialva/public_html/micms/index.php(10): require_once('/home/arialva/p...')
+#8 {main}
+  thrown in /home/arialva/public_html/micms/core/database.php on line 4
+[03-Jan-2012 10:54:59] PHP Warning:  require(app/views/admin/forgotPassword.php) [<a href='function.require'>function.require</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/core/view.php on line 14
+[03-Jan-2012 10:54:59] PHP Warning:  require(app/views/admin/forgotPassword.php) [<a href='function.require'>function.require</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/core/view.php on line 14
+[03-Jan-2012 10:54:59] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required 'app/views/admin/forgotPassword.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/core/view.php on line 14
+[03-Jan-2012 10:57:27] PHP Warning:  require(/home/arialva/public_html/micmsapp/views/elements/head.php) [<a href='function.require'>function.require</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/core/view.php on line 13
+[03-Jan-2012 10:57:27] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required '/home/arialva/public_html/micmsapp/views/elements/head.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/core/view.php on line 13
+[03-Jan-2012 10:58:06] PHP Warning:  require(/home/arialva/public_html/micmsapp/views/elements/head.php) [<a href='function.require'>function.require</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/core/view.php on line 13
+[03-Jan-2012 10:58:06] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required '/home/arialva/public_html/micmsapp/views/elements/head.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/core/view.php on line 13
+[03-Jan-2012 10:58:09] PHP Warning:  require(/home/arialva/public_html/micmsapp/views/elements/head.php) [<a href='function.require'>function.require</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/core/view.php on line 13
+[03-Jan-2012 10:58:09] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required '/home/arialva/public_html/micmsapp/views/elements/head.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/core/view.php on line 13
+[03-Jan-2012 10:58:13] PHP Warning:  require(/home/arialva/public_html/micmsapp/views/elements/head.php) [<a href='function.require'>function.require</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/core/view.php on line 13
+[03-Jan-2012 10:58:13] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required '/home/arialva/public_html/micmsapp/views/elements/head.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/core/view.php on line 13
+[03-Jan-2012 10:58:17] PHP Warning:  require(/home/arialva/public_html/micms/app/views/admin/forgotPassword.php) [<a href='function.require'>function.require</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/core/view.php on line 14
+[03-Jan-2012 10:58:17] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required '/home/arialva/public_html/micms/app/views/admin/forgotPassword.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/core/view.php on line 14
+[03-Jan-2012 11:08:23] PHP Fatal error:  Call to undefined method AdminController::changePassword() in /home/arialva/public_html/micms/app/bootstrap.php on line 43
+[06-Jan-2012 19:46:31] PHP Warning:  require(/home/arialva/public_html/micms/app/views/admin/siteSettings.php) [<a href='function.require'>function.require</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/core/view.php on line 14
+[06-Jan-2012 19:46:31] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required '/home/arialva/public_html/micms/app/views/admin/siteSettings.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/core/view.php on line 14
+[06-Jan-2012 19:49:51] PHP Warning:  require(/home/arialva/public_html/micms/app/views/admin/siteSettings.php) [<a href='function.require'>function.require</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/core/view.php on line 14
+[06-Jan-2012 19:49:51] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required '/home/arialva/public_html/micms/app/views/admin/siteSettings.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/core/view.php on line 14
+[27-Apr-2012 09:07:59] PHP Warning:  require(/home/arialva/public_html/micms/app/views/admin/siteSettings.php) [<a href='function.require'>function.require</a>]: failed to open stream: No such file or directory in /home/arialva/public_html/micms/core/view.php on line 14
+[27-Apr-2012 09:07:59] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required '/home/arialva/public_html/micms/app/views/admin/siteSettings.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/arialva/public_html/micms/core/view.php on line 14
+[29-Apr-2013 21:46:52] PHP Fatal error:  Call to undefined method AdminController::admin() in /home/arialva/public_html/micms/app/bootstrap.php on line 48
+[29-Apr-2013 21:47:09] PHP Fatal error:  Call to undefined method AdminController::admin() in /home/arialva/public_html/micms/app/bootstrap.php on line 48
