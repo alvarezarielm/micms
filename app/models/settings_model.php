@@ -28,5 +28,13 @@ class SettingsModel extends Model {
 		return $setting;
 	}
 	
+	public function loadSettings(){
+		$settings = $this->getSettings();
+		foreach ($settings as $setting){
+			$this->attributes[$setting['key']] = $setting['value'];
+		}
+		
+// 		return $setting;
+	}
 	
 }

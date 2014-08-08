@@ -40,15 +40,15 @@
 			$.post(url, data, function(id){
 					returnPages();
 					if(action == 'delete'){
-						loadResponse(html);
+						loadResponse(id);
 						return false;
 					}
 					if(action == 'create'){
 						html='Pagina creada';
 						returnEdit(id);
 					}
-					loadResponse(html);
-					returnEdit(id);
+					loadResponse(id);
+					//returnEdit(id);
 				}
 			);
 		}
@@ -129,7 +129,7 @@
 			$('.del').live('click', function(e) {
 				e.preventDefault();
 				var id = $(this).attr('title');
-				ajaxRequest('<?php echo BASE_URL?>admin/deletePage/'+id, null, 'delete');
+				ajaxRequest($(this).attr('href'), null, 'delete');
 				loadSettingsView();
 			});
 		}

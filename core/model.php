@@ -2,6 +2,19 @@
 
 abstract class Model {
 
+	var $attributes;
+	private $_className;
+	private $_tableName;
+	
+	public function __construct(){
+		$this->setTableName();
+		$this->setClassName();
+	}
+	
+	private function setClassName(){
+		$this->_className = get_class($this);
+	}
+	
 	/**
 	 * Setea propiedad del objeto.
 	 *
@@ -24,6 +37,21 @@ abstract class Model {
 	    }
 	}
 	
+	private function setTableName($tableName = null){
+		if(!isset($tableName)){
+			$class = strtolower(substr_replace(get_class($this) ,"",-5));
+			$tableName = $class.'s';
+			$this->__set('_tableName', $tableName );
+		}else{
+			$this->__set('_tableName', $tableName);
+		}
+		
+	}
+	
+	private function getTableName(){
+		return $this->_tableName;
+	}
+	
 	/**
 	 * Guarda un objeto.
 	 *
@@ -31,13 +59,7 @@ abstract class Model {
 	 * */
 	public function save(){
 		$connection = DB::connect();
-		$class = strtolower(substr_replace(get_class($this) ,"",-5));
-		$tableName = $class.'s';
-		$vars = get_object_vars($this);
-		$exists = $this->load();
-		if (is_null($exists)) {
-			unset($vars['id']);
-		}
+		$vars = (isset($this->attributes)) ? $this->attributes : get_object_vars($this);
 		
 		$columns = '';
 		$values = '';
@@ -46,30 +68,30 @@ abstract class Model {
 		$sql = "";
 
 		foreach ($vars as $col=>$v){
-			if($lastColumn == $col){
-				$columns .= "`$col`";
-				$values .= "'".DB::escape($v)."'";
-				$setUpdate .= "`$col` = '".DB::escape($v)."'"; 
-			}else {
-				$columns .= "`$col`, ";
-				$values .= "'".DB::escape($v)."', "; 
-				$setUpdate .= "`$col` = '".DB::escape($v)."', ";
+			if(!is_null($this->{$col})){
+				if($lastColumn == $col){
+					$columns .= "`$col`";
+					$values .= "'".DB::escape($v)."'";
+					$setUpdate .= "`$col` = '".DB::escape($v)."'";
+				}else {
+					$columns .= "`$col`, ";
+					$values .= "'".DB::escape($v)."', ";
+					$setUpdate .= "`$col` = '".DB::escape($v)."', ";
+				}
 			}
 		}
 		
-		
-		if(is_null($exists)){
-			$sql = "INSERT INTO $tableName ($columns) VALUES ($values)";
+		if(is_null($this->id)){
+			$sql = "INSERT INTO $this->_tableName ($columns) VALUES ($values)";
 			
 		}else {
-			$sql = "UPDATE $tableName SET 
+			$sql = "UPDATE $this->_tableName SET 
 					$setUpdate
 					WHERE `id`= ".DB::escape($this->id);
 		}
-		
+
 		try {
-			$connection->exec($sql);
-			return $connection->lastInsertId();
+			return $connection->exec($sql);
 		} catch (PDOException $e){
 			die('Error: '.$e->getMessage().'<br/>');
 		}
@@ -81,15 +103,10 @@ abstract class Model {
 	 * 
 	 * @return: boolean
 	 * */
-	public function delete(){
+	public function delete($id = null){
 		$connection = DB::connect();
-		$class = strtolower(substr_replace(get_class($this) ,"",-5));
-		$tableName = $class.'s';
-		$vars = get_object_vars($this);
-		$columns = '';
-		$values = '';
-		$lastColumn = end(array_keys($vars));
-		$sql = "DELETE FROM $tableName WHERE id = '".$this->__get('id')."'";
+		$id = (!is_null($id)) ? $id : $this->__get('id');
+		$sql = "DELETE FROM $this->_tableName WHERE id = '".DB::escape($id)."'";
 		
 		try {
 			return $connection->exec($sql);
@@ -107,24 +124,46 @@ abstract class Model {
 
 	public function load($id = null){
 	
-		if(!isset($id)){
+		if(is_null($id)){
 			$id = $this->__get('id');
 		}
-		$class = strtolower(substr_replace(get_class($this) ,"",-5));
-		$data = $this->getById($id);
 		
+		$data = $this->getById($id);
+
 		if($data){
-			$class = ucfirst($class.'Model');
 			if(count($data) > 0){
-				$object = new $class;
 				foreach ($data as $k => $v){
-					$object->__set($k, $v);
+					$this->__set($k, $v);
 				}
 			}
-			
-			return $object;
+
+			return $this;
 		}
 		return null;
+	}
+	
+	public function loadByAttributes($attributes = array()){
+	
+		if(is_array($attributes)){
+			
+			foreach ($attributes as $property => $value){
+				$this->__set($property, $value);
+			}
+			
+			$data = $this->getByAttr($attributes);
+			
+			if($data){
+				if(count($data) > 0){
+					foreach ($data as $k => $v){
+						$this->__set($k, $v);
+					}
+				}
+			
+				return $this;
+			}
+			return null;
+		}
+		
 	}
 	
 	/**
@@ -136,22 +175,92 @@ abstract class Model {
 	protected function getById($id){
 		
 		$connection = DB::connect();
-		$class = strtolower(substr_replace(get_class($this) ,"",-5));
-		$tableName = $class.'s';
 		$vars = get_object_vars($this);
-		$sql = "SELECT * FROM $tableName WHERE id = ?";
+		$sql = "SELECT * FROM $this->_tableName WHERE id = ".DB::escape($id);
 		$result = '';
-		
-		
-		try {
-			$stmt = $connection->prepare($sql);
-			$stmt->bindParam(1, $id);
-			$result = $stmt->fetch();
 
+		try {
+			$stmt = $connection->query($sql);
+			$result = $stmt->fetch();
+			
 			return $result;
 				
 		} catch (PDOException $e){
 			die('Error: '.$e->getMessage().'<br/>');
+		}
+	}
+	
+	protected function getByAttr($attributes = array()){
+		if(is_array($attributes)){
+			$connection = DB::connect();
+			$i = 0;
+			$sql = "";
+			
+			$where = '';
+			$and = '';
+			
+			foreach ($attributes as $col=>$v){
+				if($i == 0){
+					$where = $col." = '".DB::escape($v)."'";
+					
+				}else {
+					$and .= " AND ".$col." = '".DB::escape($v)."'"; 
+					
+				}
+				$i++;
+			}
+			
+			$sql = "SELECT * FROM $this->_tableName WHERE ".$where.$and;
+			$result = '';
+			
+			try {
+				$stmt = $connection->query($sql);
+				
+				$result = $stmt->fetch();
+				return $result;
+			
+			} catch (PDOException $e){
+				die('Error: '.$e->getMessage().'<br/>');
+			}	
+		}else{
+			throw new Exception('Los atributos deben cargarse en forma de array.');
+		}
+	}
+	
+	protected function getAllByAttr($attributes = array()){
+		if(is_array($attributes)){
+			$connection = DB::connect();
+			$i = 0;
+			$sql = "";
+				
+			$where = '';
+			$and = '';
+				
+			foreach ($attributes as $col=>$v){
+				if($i == 0){
+					$where = $col." = '".DB::escape($v)."'";
+						
+				}else {
+					$and .= " AND ".$col." = '".DB::escape($v)."'";
+						
+				}
+				$i++;
+			}
+				
+			$sql = "SELECT * FROM $this->_tableName WHERE ".$where.$and;
+			$result = '';
+				
+			try {
+				$stmt = $connection->query($sql);
+	
+				$result = $stmt->fetchAll();
+				return $result;
+					
+			} catch (PDOException $e){
+				die('Error: '.$e->getMessage().'<br/>');
+			}
+		}else{
+			throw new Exception('Los atributos deben cargarse en forma de array.');
 		}
 	}
 	
@@ -161,13 +270,11 @@ abstract class Model {
 	 *
 	 * @return: mixed.
 	 * */
-	static function getAll($name){
+	protected function getAll(){
 		
 		$connection = DB::connect();
-		$class = strtolower($name);
-		$tableName = $class.'s';
 		
-		$sql = "SELECT * FROM $tableName";
+		$sql = "SELECT * FROM $this->_tableName";
 		$result = '';
 		
 		try {
@@ -181,24 +288,34 @@ abstract class Model {
 		}
 	}
 	
-	public function instanceDependentTables(){
-		if($this->hasDependentTables()){
-			foreach ($this->dependentTables as $dependiente){
-				$classname = ucfirst($dependiente).'Model';
-				Helper::loadModel($dependiente);
-				$instance = new $classname;
-				$get = 'get'.ucfirst($dependiente);
-// 				$this->{$get}($this->__get('id'));
-			}
+	public function getCollection(){
+		$collection = new Collection();
+		$dataArray = $this->getAll();
+		foreach ($dataArray as $data){
+			$obj = new $this->_className;
+			$obj->load($data['id']);
+			$collection->add($obj);
 		}
+		return $collection;
 	}
 	
-
 	
-	private function hasDependentTables(){
-		if(isset($this->dependentTables)){
-			return true;
-		}
-		return false;
-	} 
+// 	public function instanceDependentTables(){
+// 		if($this->hasDependentTables()){
+// 			foreach ($this->dependentTables as $dependiente){
+// 				$classname = ucfirst($dependiente).'Model';
+// 				Helper::loadModel($dependiente);
+// 				$instance = new $classname;
+// 				$get = 'get'.ucfirst($dependiente);
+// // 				$this->{$get}($this->__get('id'));
+// 			}
+// 		}
+// 	}
+	
+// 	private function hasDependentTables(){
+// 		if(isset($this->dependentTables)){
+// 			return true;
+// 		}
+// 		return false;
+// 	} 
 }

@@ -1,20 +1,20 @@
 <h3><?php echo ucfirst($this->page_title);?> content <span><?php if(empty($this->modified)){echo 'Creado: '.$this->created; }else{ echo 'Modificado: '.$this->modified;}?></span></h3>
 <form id="editPageForm" action="<?php echo BASE_URL?>admin/savePage/<?php echo $this->page_id; ?>" method="POST">
 	<p><label>Titulo</label></p>
-	<input type="text" id="editTitle" name="title" value="<?php echo $this->page_title;?>">
+	<input type="text" id="editTitle" name="Page[title]" value="<?php echo $this->page_title;?>">
 	<p><label>Menu index</label></p>
-	<input type="text" id="menuIndex" name="menuindex" value="<?php echo $this->menuindex;?>">
+	<input type="text" id="menuIndex" name="Page[menuindex]" value="<?php echo $this->menuindex;?>">
 	<p><label>URL Alias</label></p>
-	<input type="text" id="alias" name="alias" value="<?php echo $this->alias;?>">
+	<input type="text" id="alias" name="Page[alias]" value="<?php echo $this->alias;?>">
 	<p><label>Template</label></p>
-	<select name="template">
+	<select name="Page[template]">
 		<?php echo $this->template;?>
 	</select>
 	<p><label>Parent</label></p>
-	<select name="parent">
+	<select name="Page[parent]">
 		<?php echo $this->parent;?>
 	</select>
-	<p>Public access <input type="checkbox" name="public_access" <?php if($this->public_access){echo 'checked=""';}?>/></p>
+	<p>Public access <input type="checkbox" value="1" name="Page[public_access]" <?php if($this->public_access){echo 'checked=""';}?>/></p>
 	<?php $i = 0;
 		 foreach ($this->content as $content):?>
 		 	<?php $i++?>

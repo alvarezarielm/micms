@@ -23,7 +23,6 @@ class Bootstrap {
 				require $file;
 				$controllerName = ucfirst($controller_url).'Controller';
 				$controller = new $controllerName;
-				$controller->loadModel($controller_url);
 				if(!is_null($method_url)){
 					if(method_exists($controller, $method_url)){
 						if(!is_null($param_url)){
@@ -31,14 +30,15 @@ class Bootstrap {
 						}else{
 							$controller->{$method_url}();
 						}
+					}else{
+						die('El metodo no existe');
 					}
 				}else{
 					$controller->index();
 				}
 				
 			}else{
-				echo 'El controlador no existe';
-				return false;
+				die('El controlador no existe');
 			}
 		}
 	}

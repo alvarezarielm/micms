@@ -17,4 +17,8 @@ class View {
 		
 	}
 	
+	public function assign($name, $value){
+		$this->$name = $value;
+	}
+	
 }

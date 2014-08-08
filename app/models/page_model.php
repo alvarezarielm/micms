@@ -11,6 +11,10 @@ class PageModel extends Model {
 	var $template;
 	var $created;
 	
+	static function model($className = __CLASS__){
+		return parent::loadModel($className);
+	}
+	
 // 	var $dependentTables = array(
 // 			'Content'
 // 	);

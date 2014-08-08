@@ -4,9 +4,6 @@ class AdminController extends Controller {
 	
 	function __construct(){
 		parent::__construct();
-		Session::init();
-		$this->view->page = 'admin';
-		$this->view->page_title = 'Admin';
 	}
 	
 	function login(){
@@ -31,7 +28,9 @@ class AdminController extends Controller {
 	}
 	
 	function index(){
-		
+		$view = new View();
+		$view->page = 'admin';
+		$view->page_title = 'Admin';
 // 		$collection = Helper::getCollection('user');
 		
 // 		foreach ($collection as $user){
@@ -44,17 +43,17 @@ class AdminController extends Controller {
 		
 		$settingsModel = $this->loadModel('settings');
 		$site_name = $settingsModel->getSetting('site_name');
-		$this->view->page_title = 'Admin';
-		$this->view->site_name = $site_name['value'];
+		$view->page_title = 'Admin';
+		$view->site_name = $site_name;
 
 		$isLoggedIn = Session::get('isLoggedIn');
 		if($isLoggedIn == false){
 			Session::destroy();
-			$this->view->render('admin/login');
+			$view->render('admin/login');
 			exit;
 		}
-		$this->view->username = Session::get('user');
-		$this->view->render('admin/index');
+		$view->username = Session::get('user');
+		$view->render('admin/index');
 	}
 	
 	function logout() {
@@ -63,16 +62,18 @@ class AdminController extends Controller {
 	}
 	
 	function siteSettings(){
-		$settingsModel = $this->loadModel('settings');
-		$settings = $settingsModel->getSettings();
+		$view = new View();
+		$settings = $this->loadModel('settings')->getSettings();
+		
 		foreach ($settings as $setting => $key){
-			$this->view->{$key['key']} = $key['value'];
+			$view->{$key['key']} = $key['value'];
 		}
 		
-		$this->view->render('admin/sitesettings');
+		$view->render('admin/sitesettings', true);
 	}
 	
 	function saveSettings($data = array()){
+		$view = new View();
 		$data = $_POST;
 		if(!isset($data['friendly_urls'])){
 			$data['friendly_urls'] = 0;
@@ -81,7 +82,7 @@ class AdminController extends Controller {
 		}
 		$settingsModel = $this->loadModel('settings');
 		$settingsModel->saveSettings($data);
-		$this->view->render('admin/index');
+		$view->render('admin/index');
 	}
 	
 	function getMenuPages(){
@@ -91,7 +92,7 @@ class AdminController extends Controller {
 			if($item['parent']!=0){
 				echo '';
 			}else{
-				echo '<li><a class="page-item" title="'.$item['title'].'" rel="'.$item['id'].'" href="#">'.$item['title'].'</a><a class="del" title="'.$item['id'].'" href="#">X</a>';
+				echo '<li><a class="page-item" title="'.$item['title'].'" rel="'.$item['id'].'" href="#">'.$item['title'].'</a><a class="del" title="'.$item['id'].'" href="'.BASE_URL.'page/delete/'.$item['id'].'">X</a>';
 				$childs = $pageModel->loadChild($item['id']); 
 				if (count($childs) > 0){
 					echo '<ul>';
@@ -106,7 +107,8 @@ class AdminController extends Controller {
 	}
 	
 	function deletePage($id){
-		if($id == 1){
+		$settings = $this->loadModel('settings')->loadSettings();
+		if($id == $settings->default_page){
 			echo 'La home no puede ser eliminada';
 			return false;
 		}
@@ -142,26 +144,27 @@ class AdminController extends Controller {
 	}
 	
 	function editPage($id = null){
+		$view = new View();
 		$pageModel = $this->loadModel('page');
 		$page = $pageModel->getPage($id);
 		$content = $pageModel->getPageContent($id);
-		$this->view->page_id = $page['id'];
-		$this->view->page_title = $page['title'];
-		$this->view->menuindex = $page['menuindex'];
-		$this->view->public_access = $page['public_access'];
-		$this->view->alias = $page['alias'];
-		$this->view->modified = $page['modified'];
-		$this->view->created = $page['created'];
-		$this->view->content = $content;
+		$view->page_id = $page['id'];
+		$view->page_title = $page['title'];
+		$view->menuindex = $page['menuindex'];
+		$view->public_access = $page['public_access'];
+		$view->alias = $page['alias'];
+		$view->modified = $page['modified'];
+		$view->created = $page['created'];
+		$view->content = $content;
 		
 		$menu = $pageModel->getPages();
-		$this->view->parent = '<option value="0" selected="yes">Site</option>';
+		$view->parent = '<option value="0" selected="yes">Site</option>';
 		foreach ($menu as $menu_page){
 			if($page['parent'] == $menu_page['id']){
-				$this->view->parent .= '<option value="'.$menu_page['id'].'" selected="yes">'.$menu_page['title'].'</option>';
+				$view->parent .= '<option value="'.$menu_page['id'].'" selected="yes">'.$menu_page['title'].'</option>';
 				
 			}else{
-				$this->view->parent .= '<option value="'.$menu_page['id'].'">'.$menu_page['title'].'</option>';
+				$view->parent .= '<option value="'.$menu_page['id'].'">'.$menu_page['title'].'</option>';
 			}
 			
 		}
@@ -172,25 +175,28 @@ class AdminController extends Controller {
 		foreach ($templates as $item){
 			$i++;
 			if($i == $selected){
-				$this->view->template .= '<option value="'.$i.'" selected="yes">'.$item['template'].'</option>';
+				$view->template .= '<option value="'.$i.'" selected="yes">'.$item['template'].'</option>';
 			}else{
-				$this->view->template .= '<option value="'.$i.'">'.$item['template'].'</option>';
+				$view->template .= '<option value="'.$i.'">'.$item['template'].'</option>';
 			}
 			
 		}
 		
-		$this->view->render('admin/edit',1);
+		$view->render('admin/edit',1);
 	}
 	
 	function savePage($id = null){
 		$data = $_POST;
 		$pageModel = $this->loadModel('page');
+		$pageModel->load($id);
+		$pageModel->attributes = $data['Page'];
+		
 		if(!isset($data['public_access'])){
 			$data['public_access'] = 0;
 		}else{
 			$data['public_access'] = 1;
 		}
-		if($pageModel->update($id, $data)){
+		if($pageModel->save()){
 			echo 'Pagina guardada';
 		}else{
 			echo 'No se pudo guardar la pagina';
@@ -198,23 +204,24 @@ class AdminController extends Controller {
 	}
 	
 	function addPage(){
+		$view = new View();
 		$pageModel = $this->loadModel('page');
 		$templates = $pageModel->getTemplates();
 		$menu = $pageModel->getPages();
-		$this->view->parent = '<option value="0" selected="yes">Site</option>';
+		$view->parent = '<option value="0" selected="yes">Site</option>';
 		foreach ($menu as $page){
-			$this->view->parent .= '<option value="'.$page['id'].'">'.$page['title'].'</option>';
+			$view->parent .= '<option value="'.$page['id'].'">'.$page['title'].'</option>';
 		}
 		$i = 0;
 		foreach ($templates as $item){
 			$i++;
 			if($item['id'] == 1){
-				$this->view->template .= '<option value="'.$i.'" default="default">'.$item['template'].'</option>';
+				$view->template .= '<option value="'.$i.'" default="default">'.$item['template'].'</option>';
 			}else{
-				$this->view->template .= '<option value="'.$i.'">'.$item['template'].'</option>';
+				$view->template .= '<option value="'.$i.'">'.$item['template'].'</option>';
 			}
 		}
-		$this->view->render('admin/addpage',1);
+		$view->render('admin/addpage',1);
 	}
 	
 	function createPage($data = array()){

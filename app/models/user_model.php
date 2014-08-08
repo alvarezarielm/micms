@@ -1,13 +1,5 @@
 <?php
 
-/**
- * TODO: Crear setters y getters, load del objeto como corresponde
- * 		y limpiar las funciones que corresponden al controlador como 'getByEmail'
- * 		este tipo de funciones se pueden hacer desde el controlador.
- * 		Tambien se podria crear la clase abstracta model, directamente los getters y setters 
- * 		como tambien un get collection.		
- * */
-
 class UserModel extends Model {
 	
 	var $id;
@@ -52,7 +44,5 @@ class UserModel extends Model {
 		}
 	}
 	
-	public function logout(){
-		Session::destroy();
-	}
+	
 }

@@ -1,11 +1,16 @@
 <?php 
 class DB extends PDO {
 	
+	private static $host = "127.0.0.1";
+	private static $dbname = "arialva_micms";
+	private static $user = "root";
+	private static $pass = "1qaz";
+	
 	static public function connect(){
 		try {
-			return new PDO('mysql:host=127.0.0.1;dbname=micms','root', '1qaz');
+			return new PDO('mysql:host='.self::$host.';dbname='.self::$dbname.'',self::$user, self::$pass);
 		}catch (PDOException $e){
-			die('Error: '.$e->getMessage().'<br/>');
+			throw new Exception('Error: '.$e->getMessage().'<br/>');
 		}
 	}
 	
